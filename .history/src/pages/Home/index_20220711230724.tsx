@@ -12,25 +12,10 @@ import {
   MinutesInput,
 } from './styles'
 
-const newCycleFormSchema = zod.object({
-  task: zod.string().min(1, 'Informe a tarefa!'),
-  minutesAmount: zod.number().min(5).max(60),
-})
-
-type newCycleFormData = zod.infer<typeof newCycleFormSchema>
-
 export function Home() {
-  const { register, handleSubmit, watch, reset } = useForm<newCycleFormData>({
-    resolver: zodResolver(newCycleFormSchema),
-    defaultValues: {
-      task: '',
-      minutesAmount: 0,
-    },
-  })
+  const { register, handleSubmit, watch } = useForm()
 
-  function handleCreateANewCycle(data: newCycleFormData) {
-    reset()
-  }
+  function handleCreateANewCycle(data: any) {}
 
   const task = watch('task')
   const isSubmitDisabled = !task

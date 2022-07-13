@@ -126,11 +126,6 @@ export const StartButton = styled(BaseButtonContainer)`
 export const StopButton = styled(BaseButtonContainer)`
   background-color: ${(props) => props.theme['red-500']};
 
-  &:focus {
-    box-shadow: none;
-    border-color: ${(props) => props.theme['red-700']};
-  }
-
   &:not(:disabled):hover {
     background-color: ${(props) => props.theme['red-700']};
   }

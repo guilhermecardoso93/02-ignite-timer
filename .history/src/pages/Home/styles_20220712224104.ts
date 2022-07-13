@@ -128,7 +128,7 @@ export const StopButton = styled(BaseButtonContainer)`
 
   &:focus {
     box-shadow: none;
-    border-color: ${(props) => props.theme['red-700']};
+    border-color: ${(props) => props.theme.white};
   }
 
   &:not(:disabled):hover {

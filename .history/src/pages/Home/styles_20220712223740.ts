@@ -104,6 +104,7 @@ export const BaseButtonContainer = styled.button`
 
   cursor: pointer;
 
+  background-color: ${(props) => props.theme['green-500']};
   color: ${(props) => props.theme['gray-100']};
 
   &:disabled {
@@ -125,11 +126,6 @@ export const StartButton = styled(BaseButtonContainer)`
 
 export const StopButton = styled(BaseButtonContainer)`
   background-color: ${(props) => props.theme['red-500']};
-
-  &:focus {
-    box-shadow: none;
-    border-color: ${(props) => props.theme['red-700']};
-  }
 
   &:not(:disabled):hover {
     background-color: ${(props) => props.theme['red-700']};

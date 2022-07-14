@@ -2,6 +2,7 @@ import { HandPalm, Play } from 'phosphor-react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
+
 import { HomeContainer, StopButton, StartButton } from './styles'
 import { createContext, useState } from 'react'
 import { NewCycleForm } from './components/NewCycleForm'
@@ -19,9 +20,8 @@ interface Cycle {
 interface CyclesContextType {
   activeCycle: Cycle | undefined
   activeCycleId: string | null
-  amountSecondsPassed: number
   markCurrentCycleAsFinished: () => void
-  setSecondsPassed: (seconds: number) => void
+  amountSecondsPassed: number
 }
 
 const newCycleFormSchema = zod.object({
@@ -48,10 +48,6 @@ export function Home() {
   })
 
   const { watch, reset, handleSubmit } = newCycleForm
-
-  function setSecondsPassed(seconds: number) {
-    setAmountSecondsPassed(seconds)
-  }
 
   function markCurrentCycleAsFinished() {
     setCycles((state) =>
@@ -108,7 +104,6 @@ export function Home() {
             activeCycleId,
             markCurrentCycleAsFinished,
             amountSecondsPassed,
-            setSecondsPassed,
           }}
         >
           <FormProvider {...newCycleForm}>

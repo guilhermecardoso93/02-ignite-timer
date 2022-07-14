@@ -49,10 +49,6 @@ export function Home() {
 
   const { watch, reset, handleSubmit } = newCycleForm
 
-  function setSecondsPassed(seconds: number) {
-    setAmountSecondsPassed(seconds)
-  }
-
   function markCurrentCycleAsFinished() {
     setCycles((state) =>
       state.map((cycle) => {
@@ -80,6 +76,10 @@ export function Home() {
     setAmountSecondsPassed(0)
 
     reset()
+  }
+
+  function setSecondsPassed() {
+    setAmountSecondsPassed(seconds)
   }
 
   function handleStopCycle() {

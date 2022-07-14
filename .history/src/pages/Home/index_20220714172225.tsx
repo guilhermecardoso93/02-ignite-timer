@@ -49,7 +49,7 @@ export function Home() {
 
   const { watch, reset, handleSubmit } = newCycleForm
 
-  function setSecondsPassed(seconds: number) {
+  function setSecondsPassed() {
     setAmountSecondsPassed(seconds)
   }
 

@@ -30,16 +30,17 @@ export function Home() {
 
   function markCurrentCycleAsFinished() {
     setCycles((state) =>
-      state.map((cycle) => {
-        if (cycle.id === activeCycleId) {
-          return { ...cycle, endDate: new Date() }
-        } else {
-          return cycle
-        }
-      }),
-    )
+    state.map((cycle) => {
+      if (cycle.id === activeCycleId) {
+        return { ...cycle, endDate: new Date() }
+      } else {
+        return cycle
+      }
+    }),
+  )
   }
 
+  
   function handleCreateANewCycle(data: newCycleFormData) {
     const id = String(new Date().getTime())
 
@@ -71,18 +72,17 @@ export function Home() {
     setActiveCycleId(null)
   }
 
+
   const task = watch('task')
   const isSubmitDisabled = !task
 
   return (
     <HomeContainer>
       <form action="" onSubmit={handleSubmit(handleCreateANewCycle)}>
-        <CyclesContext.Provider
-          value={{ activeCycle, activeCycleId, markCurrentCycleAsFinished }}
-        >
+        <CyclesContext.Provider value={{activeCycle, activeCycleId, markCurrentCycleAsFinished }}>
           <NewCycleForm />
-          <Countdown />
-        </CyclesContext.Provider>
+          <Countdown       />
+        </CyclesContext>
 
         {activeCycle ? (
           <StopButton type="button" onClick={handleStopCycle}>

@@ -33,9 +33,11 @@ export function Countdown() {
           new Date(),
           activeCycle.startDate,
         )
+        setAmountSecondsPassed(secondsDifference)
 
         if (secondsDifference >= totalSeconds) {
           markCurrentCycleAsFinished()
+
           setAmountSecondsPassed(totalSeconds)
           clearInterval(interval)
         } else {
@@ -47,7 +49,7 @@ export function Countdown() {
     return () => {
       clearInterval(interval)
     }
-  }, [activeCycle, totalSeconds, activeCycleId, markCurrentCycleAsFinished])
+  }, [activeCycle, totalSeconds, activeCycleId])
 
   return (
     <CountdownContainer>

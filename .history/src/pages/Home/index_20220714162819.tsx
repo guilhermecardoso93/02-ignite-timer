@@ -16,11 +16,9 @@ interface Cycle {
 
 interface CyclesContextType {
   activeCycle: Cycle | undefined
-  activeCycleId: string | null
-  markCurrentCycleAsFinished: () => void
 }
 
-export const CyclesContext = createContext({} as CyclesContextType)
+const CyclesContext = createContext({} as CyclesContextType)
 
 export function Home() {
   const [cycles, setCycles] = useState<Cycle[]>([])
@@ -28,17 +26,13 @@ export function Home() {
 
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
 
-  function markCurrentCycleAsFinished() {
-    setCycles((state) =>
-      state.map((cycle) => {
-        if (cycle.id === activeCycleId) {
-          return { ...cycle, endDate: new Date() }
-        } else {
-          return cycle
-        }
-      }),
-    )
-  }
+  const currentSeconds = activeCycle ? totalSeconds - amountSecondsPassed : 0
+
+  const minutesAmount = Math.floor(currentSeconds / 60)
+  const secondsAmount = currentSeconds % 60
+
+  const minutes = String(minutesAmount).padStart(2, '0')
+  const seconds = String(secondsAmount).padStart(2, '0')
 
   function handleCreateANewCycle(data: newCycleFormData) {
     const id = String(new Date().getTime())
@@ -71,18 +65,26 @@ export function Home() {
     setActiveCycleId(null)
   }
 
+  useEffect(() => {
+    if (activeCycle) {
+      document.title = `${minutes}:${seconds}`
+    }
+  }, [minutes, seconds, activeCycle])
+
   const task = watch('task')
   const isSubmitDisabled = !task
 
   return (
     <HomeContainer>
       <form action="" onSubmit={handleSubmit(handleCreateANewCycle)}>
-        <CyclesContext.Provider
-          value={{ activeCycle, activeCycleId, markCurrentCycleAsFinished }}
-        >
+        <CyclesContext>
           <NewCycleForm />
-          <Countdown />
-        </CyclesContext.Provider>
+          <Countdown
+            activeCycle={activeCycle}
+            setCycles={setCycles}
+            activeCycleId={activeCycleId}
+          />
+        </CyclesContext>
 
         {activeCycle ? (
           <StopButton type="button" onClick={handleStopCycle}>

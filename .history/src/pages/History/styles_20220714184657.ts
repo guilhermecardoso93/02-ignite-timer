@@ -73,7 +73,7 @@ interface StatusProps {
 export const Status = styled.span<StatusProps>`
   display: flex;
   align-items: center;
-  justify-content: left;
+  justify-content: center;
   gap: 0.5rem;
 
   &::before {

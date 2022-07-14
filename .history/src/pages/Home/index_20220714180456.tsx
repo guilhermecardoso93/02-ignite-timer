@@ -16,8 +16,7 @@ const newCycleFormSchema = zod.object({
 type newCycleFormData = zod.infer<typeof newCycleFormSchema>
 
 export function Home() {
-  const { activeCycle, interruptCurrentCycle, CreateANewCycle } =
-    useContext(CyclesContext)
+  const { interruptCurrentCycle, CreateANewCycle } = useContext(CyclesContext)
 
   const newCycleForm = useForm<newCycleFormData>({
     resolver: zodResolver(newCycleFormSchema),
@@ -26,7 +25,9 @@ export function Home() {
       minutesAmount: 0,
     },
   })
-  const { watch, handleSubmit } = newCycleForm
+
+  const { watch, reset, handleSubmit } = newCycleForm
+
   const task = watch('task')
   const isSubmitDisabled = !task
 

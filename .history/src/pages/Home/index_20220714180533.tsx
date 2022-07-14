@@ -26,7 +26,9 @@ export function Home() {
       minutesAmount: 0,
     },
   })
+
   const { watch, handleSubmit } = newCycleForm
+
   const task = watch('task')
   const isSubmitDisabled = !task
 

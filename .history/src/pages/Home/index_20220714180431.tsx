@@ -3,7 +3,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 import { HomeContainer, StopButton, StartButton } from './styles'
-import { useContext } from 'react'
+import { createContext, useContext, useState } from 'react'
 import { NewCycleForm } from './components/NewCycleForm'
 import { Countdown } from './components/Countdown'
 import { CyclesContext } from '../../context/CycleContext'
@@ -16,8 +16,7 @@ const newCycleFormSchema = zod.object({
 type newCycleFormData = zod.infer<typeof newCycleFormSchema>
 
 export function Home() {
-  const { activeCycle, interruptCurrentCycle, CreateANewCycle } =
-    useContext(CyclesContext)
+  const { interruptCurrentCycle, CreateANewCycle } = useContext(CyclesContext)
 
   const newCycleForm = useForm<newCycleFormData>({
     resolver: zodResolver(newCycleFormSchema),
@@ -26,7 +25,9 @@ export function Home() {
       minutesAmount: 0,
     },
   })
-  const { watch, handleSubmit } = newCycleForm
+
+  const { watch, reset, handleSubmit } = newCycleForm
+
   const task = watch('task')
   const isSubmitDisabled = !task
 

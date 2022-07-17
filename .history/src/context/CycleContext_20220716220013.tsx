@@ -5,7 +5,6 @@ import {
   interruptCurrentCycleAction,
   markCurrentCycleAsFinishedAction,
 } from '../reducers/cycles/actions'
-import { differenceInSeconds } from 'date-fns'
 
 interface CreateCycleData {
   task: string
@@ -28,13 +27,11 @@ interface CycleContextProviderProps {
   children: ReactNode
 }
 
-const cyclesInitialState = {
-  cycles: [],
-  activeCycleId: null,
-}
-
 export function CycleContextProvider({ children }: CycleContextProviderProps) {
-  const [cyclesState, dispatch] = useReducer(cyclesReducer, cyclesInitialState)
+  const [cyclesState, dispatch] = useReducer(cyclesReducer, {
+    cycle: [],
+    activeCycleId: null,
+  })
 
   const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)
   const { cycles, activeCycleId } = cyclesState
@@ -59,7 +56,7 @@ export function CycleContextProvider({ children }: CycleContextProviderProps) {
       startDate: new Date(),
     }
 
-    dispatch(addNewCycleAction(newCycle))
+    dispatch(addNewCycleAction())
 
     setAmountSecondsPassed(0)
   }
